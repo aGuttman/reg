@@ -85,7 +85,6 @@ jobs:
 
     - name: Release
       uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'ref/tags/')
       with:
         files: |
           ${{ env.ASSET_PATH }}
