@@ -59,8 +59,8 @@ jobs:
             Linux)
                 stage=$(mktemp -d)
                 ;;
-            maxOS)
-                stage=/tmp
+            macOS)
+                stage=$(mktemp -d -t tmp)
                 ;;
         esac
 
