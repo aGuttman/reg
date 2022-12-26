@@ -9,16 +9,16 @@ jobs:
     strategy:
       matrix:
         include:
-        - build: linux
-          os: ubuntu-latest
-          rust: stable
-          target: x86_64-unknown-linux-musl
-          cross: false
-        # - build: macos
-        #   os: macos-latest
+        # - build: linux
+        #   os: ubuntu-latest
         #   rust: stable
-        #   target: x86_64-apple-darwin
+        #   target: x86_64-unknown-linux-musl
         #   cross: false
+        - build: macos
+          os: macos-latest
+          rust: stable
+          target: x86_64-apple-darwin
+          cross: false
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -60,7 +60,7 @@ jobs:
                 stage=$(mktemp -d)
                 ;;
             maxOS)
-                stage=$(mkdir tmp)
+                stage=$(mktemp -d -t tmp)
                 ;;
         esac
 
@@ -69,7 +69,6 @@ jobs:
         cat target/${{ matrix.target }}/release/newfile
         echo $stage
         cd $stage
+        echo after
         pwd
         ls
-
-        
