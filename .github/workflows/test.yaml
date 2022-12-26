@@ -79,7 +79,7 @@ jobs:
 
         cd $src
 
-        case $RUNNER_OS include
+        case $RUNNER_OS in
             Linux)
                 sha256sum $ASSET_NAME > $CHECKSUM_PATH
                 ;;
