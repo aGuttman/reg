@@ -50,10 +50,6 @@ jobs:
     - name: Build
       run : |
         cargo build --release --target ${{ matrix.target }}
-        pwd
-        ls target
-        ls target/${{ matrix.target }}
-        ls target/${{ matrix.target }}/release
 
     - name: Package Artifacts
       run: |
@@ -68,7 +64,7 @@ jobs:
                 ;;
         esac
 
-        cp target/${{ matrix.target }}/release/sysit $stage/
+        cp target/${{ matrix.target }}/release $stage/
         cd $stage
 
         RELEASE_VERSION=${GITHUB_REF#ref/tags/}
