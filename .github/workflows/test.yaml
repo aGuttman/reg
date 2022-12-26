@@ -60,7 +60,7 @@ jobs:
                 stage=$(mktemp -d)
                 ;;
             maxOS)
-                stage=$(mktemp -d -t tmp)
+                stage=$(mktemp -d -t ~/tmp)
                 ;;
         esac
 
@@ -69,7 +69,6 @@ jobs:
         cat target/${{ matrix.target }}/release/newfile
         echo $stage
         cd $stage
-        cd /
         echo after
         pwd
         ls
