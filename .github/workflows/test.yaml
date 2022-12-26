@@ -48,11 +48,12 @@ jobs:
         rustup show
 
     - name: Build
-      run : cargo build --release --target ${{ matrix.target }}
-      run : pwd
-      run : ls target
-      run : ls target/${{ matrix.target }}
-      run : ls target/${{ matrix.target }}/release
+      run : |
+        cargo build --release --target ${{ matrix.target }}
+        pwd
+        ls target
+        ls target/${{ matrix.target }}
+        ls target/${{ matrix.target }}/release
 
     - name: Package Artifacts
       run: |
