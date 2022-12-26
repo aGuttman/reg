@@ -60,7 +60,7 @@ jobs:
                 stage=$(mktemp -d)
                 ;;
             maxOS)
-                stage=$(mktemp -d -t tmp)
+                stage=/tmp
                 ;;
         esac
 
@@ -68,8 +68,35 @@ jobs:
         ls -a > target/${{ matrix.target }}/release/newfile
         cat target/${{ matrix.target }}/release/newfile
         echo $stage
+        cp target/${{ matrix.target }}/release/reg $stage/
         cd $stage
-        cd /tmp
-        echo after
-        pwd
-        ls
+
+        RELEASE_VERSION=${GITHUB_REF#ref/tags/}
+        ASSET_NAME="reg-0-${{ matrix.target }}.tar.gz"
+        ASSET_PATH="$src/$ASSET_NAME"
+        CHECKSUM_PATH="$ASSET_PATH.sha256"
+
+        echo "ASSET_PATH=$ASSET_PATH" >> $GITHUB_ENV
+        echo "CHECKSUM_PATH=$CHECKSUM_PATH" >> $GITHUB_ENV
+
+        tar czf $ASSET_PATH *
+
+        cd $src
+
+        case $RUNNER_OS in
+            Linux)
+                sha256sum $ASSET_NAME > $CHECKSUM_PATH
+                ;;
+            macOS)
+                shasum -a 256 $ASSET_NAME > $CHECKSUM_PATH
+                ;;
+        esac
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          ${{ env.ASSET_PATH }}
+          ${{ env.CHECKSUM_PATH }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
