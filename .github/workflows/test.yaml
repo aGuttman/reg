@@ -69,6 +69,7 @@ jobs:
         cat target/${{ matrix.target }}/release/newfile
         echo $stage
         cd $stage
+        cd runners
         echo after
         pwd
         ls
