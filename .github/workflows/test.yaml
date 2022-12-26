@@ -72,8 +72,8 @@ jobs:
         ASSET_PATH="$src/$ASSET_NAME"
         CHECKSUM_PATH="$ASSET_PATH.sha256"
 
-        echo "ASSET_PATH=$ASSET_PATH" >> $GItHUB_ENV
-        echo "CHECKSUM_PATH=$CHECKSUM_PATH" >> $GItHUB_ENV
+        echo "ASSET_PATH=$ASSET_PATH" >> $GITHUB_ENV
+        echo "CHECKSUM_PATH=$CHECKSUM_PATH" >> $GITHUB_ENV
 
         tar czf $ASSET_PATH *
 
