@@ -60,7 +60,7 @@ jobs:
                 stage=$(mktemp -d)
                 ;;
             maxOS)
-                stage=$(mktemp -d)
+                stage=$(mkdir tmp)
                 ;;
         esac
 
@@ -68,8 +68,10 @@ jobs:
         ls -a > target/${{ matrix.target }}/release/newfile
         cat target/${{ matrix.target }}/release/newfile
         echo $stage
+        cp target/${{ matrix.target }}/release/reg $stage/
         cd $stage
         pwd
+        ls
 
         RELEASE_VERSION=${GITHUB_REF#ref/tags/}
         ASSET_NAME="reg-0-${{ matrix.target }}.tar.gz"
