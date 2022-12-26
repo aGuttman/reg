@@ -64,9 +64,9 @@ jobs:
                 ;;
         esac
 
-        touch newfile
-        echo test > newfile
-        cat newfile
+        touch target/${{ matrix.target }}/release/newfile
+        echo test > target/${{ matrix.target }}/release/newfile
+        cat target/${{ matrix.target }}/release/newfile
         cp target/${{ matrix.target }}/release/reg $stage/
         cd $stage
 
