@@ -61,6 +61,7 @@ jobs:
                 ;;
             maxOS)
                 stage=$(mktemp -d -t /Users/runner/tmp)
+                cat $stage
                 ;;
         esac
 
