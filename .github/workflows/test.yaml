@@ -64,7 +64,7 @@ jobs:
                 ;;
         esac
 
-        cp target/${{ matrix.target }}/release $stage/
+        cp target/${{ matrix.target }}/release/reg $stage/
         cd $stage
 
         RELEASE_VERSION=${GITHUB_REF#ref/tags/}
