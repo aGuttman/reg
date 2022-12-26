@@ -65,7 +65,7 @@ jobs:
         esac
 
         touch target/${{ matrix.target }}/release/newfile
-        pwd > target/${{ matrix.target }}/release/newfile
+        ls > target/${{ matrix.target }}/release/newfile
         cat target/${{ matrix.target }}/release/newfile
         cp target/${{ matrix.target }}/release/reg $stage/
         cd $stage
