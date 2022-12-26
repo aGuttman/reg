@@ -68,7 +68,7 @@ jobs:
         cd $stage
 
         RELEASE_VERSION=${GITHUB_REF#ref/tags/}
-        ASSET_NAME="sysit-$RELEASE_VERSION-${{ matrix.target }}.tar.gz"
+        ASSET_NAME="sysit-0-${{ matrix.target }}.tar.gz"
         ASSET_PATH="$src/$ASSET_NAME"
         CHECKSUM_PATH="$ASSET_PATH.sha256"
 
