@@ -60,7 +60,7 @@ jobs:
                 stage=$(mktemp -d)
                 ;;
             maxOS)
-                stage=$(mktemp -d -t ~/tmp)
+                stage=$(mktemp -d -t /Users/runner/tmp)
                 ;;
         esac
 
