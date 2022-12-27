@@ -38,13 +38,13 @@ jobs:
           target
         key: ${{ runner.os }}-${{ matrix.rust }}
 
-    - name: Install Linker
+    - name: Install linker
       if: matrix.cross
       run: |
         sudo apt update
         sudo install ${{ matrix.linker }}
 
-    - name: Install Rust
+    - name: Install rust
       run: |
         rustup install ${{ matrix.rust }}
         rustup target add ${{ matrix.target }}
@@ -54,7 +54,7 @@ jobs:
       run : |
         cargo build --release --target ${{ matrix.target }}
 
-    - name: Package Artifacts
+    - name: Package artifacts
       run: |
         src=$(pwd)
         stage=
@@ -71,7 +71,7 @@ jobs:
         cd $stage
 
         RELEASE_VERSION=${GITHUB_REF#ref/tags/}
-        ASSET_NAME="reg-0-${{ matrix.target }}.tar.gz"
+        ASSET_NAME="reg-$RELEASE_VERSION-${{ matrix.target }}.tar.gz"
         ASSET_PATH="$src/$ASSET_NAME"
         CHECKSUM_PATH="$ASSET_PATH.sha256"
 
@@ -101,29 +101,37 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   publish-windows:
-    name: Publish windows
+    name: Publish binary windows
     runs-on: windows-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
+    - name: Checkout
+      uses: actions/checkout@v1
 
-      - name: Install rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          default: true
-          override: true
+    - name: Install rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        default: true
+        override: true
 
-      - name: Build
-        run: cargo build --release
+    - name: Build
+      run: cargo build --release
 
-      - name: Package
-        run: Compress-Archive target/release/reg.exe out.zip
+    - name: Package artifacts
+      run: |
+        src=$(pwd)
+        RELEASE_VERSION=${GITHUB_REF#ref/tags/}
+        ASSET_NAME="reg-$RELEASE_VERSION-windows"
+        ASSET_EXE="$ASSET_NAME.exe"
+        ASSET_ZIP="ASSET_NAME.zip"
+        ASSET_PATH="target/release/$ASSET_EXE"
+        Compress-Archive ASSET_PATH $ASSET_ZIP
+        echo "ASSET_ZIP=$ASSET_ZIP" >> $GITHUB_ENV
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: out.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: ${{ ASSET_ZIP }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
