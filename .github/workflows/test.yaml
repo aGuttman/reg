@@ -25,24 +25,24 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-      # with:
-      #   fetch-depth: 1
+      with:
+        fetch-depth: 1
 
     - name: Cache
       uses: actions/cache@v2
-      # with:
-      #   path: |
-      #     ~/.cargo/regostry
-      #     ~/.cargo/git
-      #     ~/.rustup
-      #     target
-      #   key: ${{ runner.os }}-${{ matrix.rust }}
+      with:
+        path: |
+          ~/.cargo/regostry
+          ~/.cargo/git
+          ~/.rustup
+          target
+        key: ${{ runner.os }}-${{ matrix.rust }}
 
-    # - name: Install linker
-    #   if: matrix.cross
-    #   run: |
-    #     sudo apt update
-    #     sudo install ${{ matrix.linker }}
+    - name: Install linker
+      if: matrix.cross
+      run: |
+        sudo apt update
+        sudo install ${{ matrix.linker }}
 
     - name: Install rust
       run: |
@@ -110,6 +110,13 @@ jobs:
 
     - name: Cache
       uses: actions/cache@v2
+      with:
+        path: |
+          ~/.cargo/regostry
+          ~/.cargo/git
+          ~/.rustup
+          target
+        key: $windows-$stable
 
     - name: Install rust
       uses: actions-rs/toolchain@v1
