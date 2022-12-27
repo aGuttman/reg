@@ -121,8 +121,7 @@ jobs:
     - name: Package artifacts
       run: |
 
-        echo "RELEASE_VERSION=$env:GITHUB_REF_NAME" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-        echo "ASSET_NAME=windows.zip" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        echo("ASSET_NAME=windows.zip") >> $env:GITHUB_ENV
         Compress-Archive target/release/reg.exe $env:ASSET_NAME
 
     - name: Release
