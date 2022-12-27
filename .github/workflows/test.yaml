@@ -119,5 +119,4 @@ jobs:
         run: cargo build --release
 
       - name: Package
-        run: |
-        zip target/release/reg.exe
+        run: zip target/release/reg.exe
