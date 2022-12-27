@@ -132,6 +132,6 @@ jobs:
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
-        files: ${{ ASSET_ZIP }}
+        files: ${{ env.ASSET_ZIP }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
