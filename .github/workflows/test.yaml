@@ -137,9 +137,15 @@ jobs:
         Compress-Archive target/x86_64-pc-windows-gnu/release/reg.exe $ASSET_NAME
         echo "ASSET_NAME=${ASSET_NAME}" >> $env:GITHUB_ENV
 
+        $CHECKSUM_NAME="${ASSET_NAME}.sha256"
+        CertUtil -hashfile $ASSET_NAME sha256 > $CHECKSUM_NAME
+        echo "CHECKSUM_NAME=${CHECKSUM_NAME}" >> $env:GITHUB_ENV
+
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
-        files: ${{ env.ASSET_NAME }}
+        files: |
+          ${{ env.ASSET_NAME }}
+          ${{ env.CHECKSUM_NAME }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
