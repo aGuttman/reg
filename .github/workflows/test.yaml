@@ -120,13 +120,14 @@ jobs:
 
     - name: Package artifacts
       run: |
+
         echo("RELEASE_VERSION=" + $env:GITHUB_REF_NAME) >> $env:GITHUB_ENV
         echo("ASSET_NAME=" + $env:RELEASE_VERSION + "-windows.zip") >> $env:GITHUB_ENV
-        Compress-Archive target/release/reg.exe $env:ASSET_ZIP
+        Compress-Archive target/release/reg.exe $env:ASSET_NAME
 
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
-        files: ${{ env.ASSET_ZIP }}
+        files: ${{ env.ASSET_NAME }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
