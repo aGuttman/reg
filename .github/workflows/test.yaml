@@ -121,7 +121,7 @@ jobs:
     - name: Package artifacts
       run: |
         $ASSET_NAME="windows.zip"
-        Compress-Archive target/release/reg.exe $env:ASSET_NAME
+        Compress-Archive target/release/reg.exe $ASSET_NAME
 
     - name: Release
       uses: softprops/action-gh-release@v1
