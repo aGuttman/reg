@@ -120,8 +120,7 @@ jobs:
 
     - name: Package artifacts
       run: |
-
-        echo("ASSET_NAME=windows.zip") >> $env:GITHUB_ENV
+        $ASSET_NAME="windows.zip"
         Compress-Archive target/release/reg.exe $env:ASSET_NAME
 
     - name: Release
