@@ -120,16 +120,16 @@ jobs:
 
     - name: Package artifacts
       run: |
-        echo("RELEASE_VERSION=" + $env:GITHUB_REF_NAME) >> $env.GITHUB_ENV
-        echo("ASSET_NAME=" + $env.RELEASE_VERSION + "-windows") >> $env.GITHUB_ENV
-        echo("ASSET_EXE=" + $env.ASSET_NAME + ".exe") >> $env.GITHUB_ENV
-        echo("ASSET_ZIP=" + $env.ASSET_NAME + ".zip") >> $env.GITHUB_ENV
-        echo("ASSET_PATH=" + "target/release/" + $env.ASSET_EXE) >> $env.GITHUB_ENV
-        Compress-Archive $env.ASSET_PATH $env.ASSET_ZIP
+        echo("RELEASE_VERSION=" + $env:GITHUB_REF_NAME) >> $env:GITHUB_ENV
+        echo("ASSET_NAME=" + $env:RELEASE_VERSION + "-windows") >> $env:GITHUB_ENV
+        echo("ASSET_EXE=" + $env:ASSET_NAME + ".exe") >> $env:GITHUB_ENV
+        echo("ASSET_ZIP=" + $env:ASSET_NAME + ".zip") >> $env:GITHUB_ENV
+        echo("ASSET_PATH=" + "target/release/" + $env:ASSET_EXE) >> $env:GITHUB_ENV
+        Compress-Archive $env:ASSET_PATH $env:ASSET_ZIP
 
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
-        files: ${{ env.ASSET_ZIP }}
+        files: ${{ env:ASSET_ZIP }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
