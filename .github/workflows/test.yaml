@@ -134,7 +134,7 @@ jobs:
       run: |
         $RELEASE_VERSION=${env:GITHUB_REF_NAME}
         $ASSET_NAME="reg-${RELEASE_VERSION}-x86_64-pc-windows-gnu.zip"
-        Compress-Archive target/release/reg.exe $ASSET_NAME
+        Compress-Archive target/x86_64-pc-windows-gnu/release/reg.exe $ASSET_NAME
         echo "ASSET_NAME=${ASSET_NAME}" >> $env:GITHUB_ENV
 
     - name: Release
