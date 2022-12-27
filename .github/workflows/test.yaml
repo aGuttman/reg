@@ -119,4 +119,4 @@ jobs:
         run: cargo build --release
 
       - name: Package
-        run: zip target/release/reg.exe
+        run: Compress-Archive target/release/reg.exe out.zip
