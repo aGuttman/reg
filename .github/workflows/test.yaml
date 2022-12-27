@@ -120,6 +120,7 @@ jobs:
 
     - name: Package artifacts
       run: |
+        $RELEASE_VERSION=${GITHUB_REF_NAME}
         $ASSET_NAME="windows.zip"
         Compress-Archive target/release/reg.exe $ASSET_NAME
 
